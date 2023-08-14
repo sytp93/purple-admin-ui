@@ -11,12 +11,12 @@ import React, { useCallback } from "react";
 
 const statusOptions = [
   { label: "전체", value: "ALL" },
-  { label: "판매중", value: "SALE" },
-  { label: "품절", value: "SOLDOUT" },
-  { label: "판매중단", value: "NOTSALE" },
+  { label: "사용중", value: "USE" },
+  { label: "사용중지", value: "STOP" },
+  { label: "사용대기", value: "WAIT" },
 ];
 
-const ProductSearch = () => {
+const ChargerSearch = () => {
   const [form] = useForm();
   const router = useRouter();
 
@@ -53,8 +53,8 @@ const ProductSearch = () => {
           <FieldInline>
             <Form.Item label="검색조건" name="searchType" initialValue="productName">
               <Select dropdownMatchSelectWidth={false}>
-                <Select.Option value="productName">상품명</Select.Option>
-                <Select.Option value="brandName">브랜드명</Select.Option>
+                <Select.Option value="productName">충전기 코드</Select.Option>
+                <Select.Option value="brandName">충전기 모델명</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item name="searchText" className="grow">
@@ -80,5 +80,5 @@ const ProductSearch = () => {
   );
 };
 
-export default React.memo(ProductSearch);
+export default React.memo(ChargerSearch);
 

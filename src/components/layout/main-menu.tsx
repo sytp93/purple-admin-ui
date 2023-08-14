@@ -26,6 +26,20 @@ const mainMenuData: IMenu[] = [
       },
     ],
   },
+  {
+    id: "charger",
+    name: "충전기 관리",
+    icon: <Package2 className="w-5 h-5" />,
+    submenu: [
+      {
+        id: "chargerList",
+        name: "충전기 목록",
+        link: {
+          path: "/sample/charger/list",
+        },
+      },
+    ],
+  },
 ];
 
 const devMenuData: IMenu[] = [
