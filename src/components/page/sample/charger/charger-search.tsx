@@ -21,6 +21,8 @@ const ChargerSearch = () => {
   const router = useRouter();
 
   const handleFinish = useCallback(
+    // 검색폼에 원하는 내용을 입력한 내용을 검색 버튼 클릭 시 url 파라메터로 보낸다.
+    // 현재 코드 상으로는 초기화 버튼에도 submit이 걸려있어서 해당 함수를 실행 시킨다.
     (formValue: IProductFormValue) => {
       router.push({
         pathname: router.pathname,
@@ -31,6 +33,9 @@ const ChargerSearch = () => {
   );
 
   return (
+    // 해당 컴포넌트는 DefaultSearchForm을 사용하고 있습니다.
+    // FieldInline 컴포넌트를 이용해 요소들을 정렬 시켜주고 있습니다.
+    // onFinish props로 submit 기능이 발생되었을때 해당 함수를 실행 시킨다.
     <DefaultSearchForm form={form} onFinish={handleFinish}>
       <FormSearch>
         <FieldInline>

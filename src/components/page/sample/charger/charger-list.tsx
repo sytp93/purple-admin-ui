@@ -11,12 +11,18 @@ import { useRouter } from "next/router";
 import numeral from "numeral";
 import React, { useCallback, useMemo, useState } from "react";
 
+// 데이터 목록을 테이블 형태로 조회 하는 컴포넌트
+
 const ChargerList = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const router = useRouter();
 
   const { data, error, isLoading } = useChargers({ page: router.query.page ? Number(router.query.page) : 1 });
 
+  console.log("listdata", data?.data.items);
+
+
+  // 페이징 기능
   const handleChangePage = useCallback(
     (pageNumber: number) => {
       router.push({
@@ -27,10 +33,14 @@ const ChargerList = () => {
     [router]
   );
 
+  // 로우의 셀렉트 박스를 클릭 시 해당 로우의 id를 가져온다.
   const onSelectChange = useCallback((newSelectedRowKeys: React.Key[]) => {
+    // set을 해줘도 해당 변수의 값이 바뀌지 않는 이유?
     setSelectedRowKeys(newSelectedRowKeys);
   }, []);
 
+
+  // 체크박스 선택 후 일괄수정 버튼 활성화 되었을때 드롭다운 메뉴 기능
   const modifyDropdownItems: MenuProps["items"] = useMemo(
     () => [
       {
@@ -41,12 +51,15 @@ const ChargerList = () => {
     [selectedRowKeys]
   );
 
+  // 테이블 로우를 클릭하는 변수
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+  // 로우가 클릭 되었을 때 일괄수정 버튼을 활성화 되게하는 조건을 만드는 변수
   const hasSelected = selectedRowKeys.length > 0;
 
+  //테이블의 컬럼을 헤더 생성하는 변수
   const columns: ColumnsType<ICharger> = [
     {
       key: "action",
@@ -72,16 +85,16 @@ const ChargerList = () => {
     },
     {
       title: "충전기코드",
-      dataIndex: "code",
+      dataIndex: "chargerCode",
       width: 100,
     },
     {
       title: "충전기 모델명",
-      dataIndex: "name",
+      dataIndex: "chargerName",
       render: (value: string, record: ICharger) => {
         return (
           <span>
-            <span className="px-2 py-1 mr-1 bg-gray-100 rounded">{record.brand}</span>
+            <span className="px-2 py-1 mr-1 bg-gray-100 rounded">{record.chargerBrand}</span>
             <span>{value}</span>
           </span>
         );
@@ -89,7 +102,7 @@ const ChargerList = () => {
     },
     {
       title: "금액",
-      dataIndex: "price",
+      dataIndex: "chargerPrice",
       align: "center",
       width: 100,
       render: (value: number) => {
@@ -135,7 +148,8 @@ const ChargerList = () => {
   if (error) {
     return <Alert message="데이터 로딩 중 오류가 발생했습니다." type="warning" />;
   }
-
+  // DefaultTableBtn 테이블 상단의 버튼을 정렬해주는 컴포넌트
+  // DefaultTable 기본 테이블 레이아웃 컴포넌트
   return (
     <>
       <DefaultTableBtn className="justify-between">
@@ -175,5 +189,5 @@ const ChargerList = () => {
     </>
   );
 };
-
+// 해당 컴포넌트는 빠른 조회를 위해 React.memo로 감싸준다.
 export default React.memo(ChargerList);

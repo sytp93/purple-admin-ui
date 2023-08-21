@@ -15,7 +15,7 @@ const ChargerListPage: IDefaultLayoutPage = () => {
   );
 };
 
-ChargerListPage.getLayout = getDefaultLayout;
-ChargerListPage.pageHeader = pageHeader;
+ChargerListPage.getLayout = getDefaultLayout; // 사이드바 메뉴를 가져오는 코드
+ChargerListPage.pageHeader = pageHeader; // 현재 메뉴의 헤더를 가져오는 코드
 
 export default ChargerListPage;

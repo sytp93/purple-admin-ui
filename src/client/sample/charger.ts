@@ -1,20 +1,30 @@
-import { ISO8601DateTime } from "@/types/common";
 import qs from "qs";
 import useSWR from "swr";
 import { fetchApi } from "../base";
 
+// export interface ICharger {
+//   id: number;
+//   code: string;
+//   brand: string;
+//   name: string;
+//   price: number;
+//   status: string;
+//   description?: string;
+//   css?: string;
+//   js?: string;
+//   createdAt: ISO8601DateTime;
+//   updatedAt: ISO8601DateTime;
+// }
+
 export interface ICharger {
-  id: number;
-  code: string;
-  brand: string;
-  name: string;
-  price: number;
-  status: string;
-  description?: string;
-  css?: string;
-  js?: string;
-  createdAt: ISO8601DateTime;
-  updatedAt: ISO8601DateTime;
+  chargerId: number;
+  chargerCode: string;
+  chargerName: string;
+  chargerPrice: string;
+  chargerBrand: string;
+  chargerStatus: string;
+  chargerCreateDate: string;
+  chargerUpdateDate: string;
 }
 
 export interface IChargerFormValue extends Omit<ICharger, "id" | "createdAt" | "updatedAt"> { }
