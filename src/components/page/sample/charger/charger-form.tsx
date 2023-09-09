@@ -42,7 +42,7 @@ const ChargerForm = ({ id, initialValues }: IChargerFormProps) => {
       <DefaultForm<IChargerFormValue> form={form} initialValues={initialValues} onFinish={handleFinish}>
         <FormSection title="기본정보" description="충전기 기본 정보를 입력해주세요">
           <FormGroup title="충전기 상태*">
-            <Form.Item name="status" rules={[{ required: true, message: "필수값입니다" }]}>
+            <Form.Item name="chargerStatus" rules={[{ required: true, message: "필수값입니다" }]}>
               <Radio.Group>
                 <Radio value="USE">사용중</Radio>
                 <Radio value="STOP">사용중지</Radio>
@@ -54,7 +54,7 @@ const ChargerForm = ({ id, initialValues }: IChargerFormProps) => {
           <Divider />
 
           <FormGroup title="브랜드*">
-            <Form.Item name="brand" rules={[{ required: true, message: "필수값입니다" }]}>
+            <Form.Item name="chargerBrand" rules={[{ required: true, message: "필수값입니다" }]}>
               <Select style={{ maxWidth: 200 }} placeholder="브랜드를 선택하세요">
                 <Select.Option value="SK시그넷">SK시그넷</Select.Option>
                 <Select.Option value="나이스차저">나이스차저</Select.Option>
@@ -69,7 +69,7 @@ const ChargerForm = ({ id, initialValues }: IChargerFormProps) => {
           <Divider />
 
           <FormGroup title="충전기 모델명*">
-            <Form.Item name="name" rules={[{ required: true, message: "필수값입니다" }]}>
+            <Form.Item name="chargerName" rules={[{ required: true, message: "필수값입니다" }]}>
               <Input placeholder="충전기 모델명을 입력하세요" />
             </Form.Item>
           </FormGroup>
@@ -77,7 +77,7 @@ const ChargerForm = ({ id, initialValues }: IChargerFormProps) => {
           <Divider />
 
           <FormGroup title="충전기 코드*">
-            <Form.Item name="code" rules={[{ required: true, message: "필수값입니다" }]}>
+            <Form.Item name="chargerCode" rules={[{ required: true, message: "필수값입니다" }]}>
               <Input placeholder="충전기 코드를 입력하세요" />
             </Form.Item>
           </FormGroup>
@@ -85,7 +85,7 @@ const ChargerForm = ({ id, initialValues }: IChargerFormProps) => {
           <Divider />
 
           <FormGroup title="금액*">
-            <Form.Item name="price" rules={[{ required: true, message: "필수값입니다" }]}>
+            <Form.Item name="chargerPrice" rules={[{ required: true, message: "필수값입니다" }]}>
               <Input placeholder="금액을 입력하세요" />
             </Form.Item>
           </FormGroup>

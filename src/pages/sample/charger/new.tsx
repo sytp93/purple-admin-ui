@@ -6,7 +6,7 @@ const pageHeader: IPageHeader = {
 };
 
 const ChargerNewPage: IDefaultLayoutPage = () => {
-  return <ChargerForm initialValues={{ status: "STOP" }} />;
+  return <ChargerForm initialValues={{ chargerStatus: "STOP" }} />;
 };
 
 ChargerNewPage.getLayout = getDefaultLayout;

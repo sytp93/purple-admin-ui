@@ -2,20 +2,6 @@ import qs from "qs";
 import useSWR from "swr";
 import { fetchApi } from "../base";
 
-// export interface ICharger {
-//   id: number;
-//   code: string;
-//   brand: string;
-//   name: string;
-//   price: number;
-//   status: string;
-//   description?: string;
-//   css?: string;
-//   js?: string;
-//   createdAt: ISO8601DateTime;
-//   updatedAt: ISO8601DateTime;
-// }
-
 export interface ICharger {
   chargerId: number;
   chargerCode: string;
@@ -31,6 +17,12 @@ export interface IChargerFormValue extends Omit<ICharger, "id" | "createdAt" | "
 
 interface IChargersParams {
   page?: number;
+  productCode?: string;
+  searchDatePeriod?: string;
+  searchDateType?: string;
+  searchText?: string;
+  searchType?: string;
+  status?: string;
 }
 
 export interface IChargersResponse {
@@ -57,8 +49,8 @@ export const useChargers = (params: IChargersParams = {}) => {
   return useSWR<IChargersResponse>(`api/sample/chargers?${qs.stringify(params)}`);
 };
 
-export const useCharger = (id: string | number) => {
-  return useSWR<IChargerResponse>(`api/sample/chargers/${id}`);
+export const useCharger = (chargerId: string | number) => {
+  return useSWR<IChargerResponse>(`api/sample/chargers/${chargerId}`);
 };
 
 export const createCharger = (value: IChargerFormValue) => {
@@ -68,3 +60,7 @@ export const createCharger = (value: IChargerFormValue) => {
 export const updateCharger = (id: string, value: IChargerFormValue) => {
   return fetchApi.put(`api/sample/chargers/${id}`, { body: JSON.stringify(value) });
 };
+
+export const deleteCharger = (id: number) => {
+  return fetchApi.delete(`api/sample/chargers/${id}`);
+}

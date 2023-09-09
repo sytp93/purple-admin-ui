@@ -56,10 +56,10 @@ const ChargerSearch = () => {
         </div>
         <div>
           <FieldInline>
-            <Form.Item label="검색조건" name="searchType" initialValue="productName">
+            <Form.Item label="검색조건" name="searchType" initialValue="chargerCode">
               <Select dropdownMatchSelectWidth={false}>
-                <Select.Option value="productName">충전기 코드</Select.Option>
-                <Select.Option value="brandName">충전기 모델명</Select.Option>
+                <Select.Option value="chargerCode">충전기 코드</Select.Option>
+                <Select.Option value="chargerName">충전기 모델명</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item name="searchText" className="grow">

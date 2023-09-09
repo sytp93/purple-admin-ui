@@ -1,8 +1,8 @@
-import { ICharger, useChargers } from "@/client/sample/charger";
+import { deleteCharger, ICharger, useChargers } from "@/client/sample/charger";
 import DefaultTable from "@/components/shared/ui/default-table";
 import DefaultTableBtn from "@/components/shared/ui/default-table-btn";
 import { ISO8601DateTime } from "@/types/common";
-import { Alert, Button, Dropdown, MenuProps, Popconfirm } from "antd";
+import { Alert, Button, Dropdown, MenuProps, message, Popconfirm } from "antd";
 import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 import { Download } from "lucide-react";
@@ -16,11 +16,18 @@ import React, { useCallback, useMemo, useState } from "react";
 const ChargerList = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const router = useRouter();
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const { data, error, isLoading } = useChargers({ page: router.query.page ? Number(router.query.page) : 1 });
+  console.log("router", router.query.searchType);
 
-  console.log("listdata", data?.data.items);
-
+  const { data, error, isLoading } = useChargers(
+    {
+      page: router.query.page ? Number(router.query.page) : 1,
+      productCode: router.query.productCode ? String(router.query.productCode) : "",
+      searchType: router.query.searchType ? String(router.query.searchType) : "",
+      searchText: router.query.searchText ? String(router.query.searchText) : ""
+    }
+  );
 
   // 페이징 기능
   const handleChangePage = useCallback(
@@ -32,6 +39,15 @@ const ChargerList = () => {
     },
     [router]
   );
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteCharger(id);
+      messageApi.success("삭제되었습니다.");
+    } catch (e: unknown) {
+      messageApi.error("에러가 발생했습니다.");
+    }
+  };
 
   // 로우의 셀렉트 박스를 클릭 시 해당 로우의 id를 가져온다.
   const onSelectChange = useCallback((newSelectedRowKeys: React.Key[]) => {
@@ -68,12 +84,12 @@ const ChargerList = () => {
       render: (_value: unknown, record: ICharger) => {
         return (
           <span className="flex justify-center gap-2">
-            <Link href={`/sample/charger/edit/${record.id}`} className="px-2 py-1 text-sm btn">
+            <Link href={`/sample/charger/edit/${record.chargerId}`} className="px-2 py-1 text-sm btn">
               수정
             </Link>
             <Popconfirm
               title="충전기를 삭제하시겠습니까?"
-              onConfirm={() => alert("삭제")}
+              onConfirm={() => handleDelete(record.chargerId)}
               okText="예"
               cancelText="아니오"
             >
@@ -111,7 +127,7 @@ const ChargerList = () => {
     },
     {
       title: "충전기 상태",
-      dataIndex: "status",
+      dataIndex: "chargerStatus",
       align: "center",
       width: 100,
     },
@@ -152,6 +168,7 @@ const ChargerList = () => {
   // DefaultTable 기본 테이블 레이아웃 컴포넌트
   return (
     <>
+      {contextHolder}
       <DefaultTableBtn className="justify-between">
         <div>
           <Dropdown disabled={!hasSelected} menu={{ items: modifyDropdownItems }} trigger={["click"]}>
